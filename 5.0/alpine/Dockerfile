@@ -44,6 +44,8 @@ RUN set -ex; \
 	make -C /usr/src/redis install; \
 	\
 	rm -r /usr/src/redis; \
+	echo 'vm.overcommit_memory = 1' >> /etc/sysctl.conf; \
+	echo never >> /sys/kernel/mm/transparent_hugepage/enabled; \
 	\
 	runDeps="$( \
 		scanelf --needed --nobanner --format '%n#p' --recursive /usr/local \
